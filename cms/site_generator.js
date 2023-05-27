@@ -56,7 +56,7 @@ function SiteGenerator(){
 		}
 
 		//CATEGORY_LIST_MENU
-		template = self.Update_CATEGORY_LIST_MENU(template, category_list);
+		template = self.Update_CATEGORY_LIST_MENU('../../..', template, category_list);
 
 		var dir = __dirname + `/../docs/posts/${post.year}/${post.month}/`;
 		if (!fs.existsSync(dir)){
@@ -88,13 +88,13 @@ function SiteGenerator(){
 		});
 	};
 	//CATEGORY_LIST_MENU
-	this.Update_CATEGORY_LIST_MENU = function(input, category_list){
+	this.Update_CATEGORY_LIST_MENU = function(path, input, category_list){
 		var h = '';
 		for(var i=0 ; i<category_list.length ; i++){
 			var c = category_list[i];
 			h += `
 			<span style="margin:5px">
-				<a href="/category_${c.index}.html?name=${c.category}">${c.category}</a>
+				<a href="${path}/category_${c.index}.html?name=${c.category}">${c.category}</a>
 			</span>
 			`;
 		}
@@ -110,7 +110,7 @@ function SiteGenerator(){
 				var category_list = await service.GetCategoryList();
 
 				//CATEGORY_LIST_MENU
-				index_content = self.Update_CATEGORY_LIST_MENU(index_content, category_list);
+				index_content = self.Update_CATEGORY_LIST_MENU('.', index_content, category_list);
 				
 				{//RECENT_POST_LIST_BY_CATEGORY
 					var h = `<div class="row">`;
@@ -131,7 +131,7 @@ function SiteGenerator(){
 								h += `
 								<div class="px-3 py-1 d-flex">
 									<div class="w-100">
-										<a href="/posts/${p.year}/${p.month}/${p.index}.html?category=${c.category}&title=${p.title}">${p.title}</a>
+										<a href="./posts/${p.year}/${p.month}/${p.index}.html?category=${c.category}&title=${p.title}">${p.title}</a>
 									</div>
 									<div class="w-100 text-right" style="font-size:0.8em; color:gray">
 										${date_format}
@@ -161,7 +161,7 @@ function SiteGenerator(){
 				var template = fs.readFileSync(__dirname + `/template/category.html`, 'utf-8');
 
 				//CATEGORY_LIST_MENU
-				template = self.Update_CATEGORY_LIST_MENU(template, category_list);
+				template = self.Update_CATEGORY_LIST_MENU('.', template, category_list);
 				
 				//Category title
 
@@ -176,7 +176,7 @@ function SiteGenerator(){
 							var p = post_list[pi];
 							if(p.category_index == c.index){
 								post_list_html += `
-								<div><a href="/posts/${p.year}/${p.month}/${p.index}.html?category=${c.category}&title=${p.title}">${p.title}</a></div>
+								<div><a href="./posts/${p.year}/${p.month}/${p.index}.html?category=${c.category}&title=${p.title}">${p.title}</a></div>
 								`;
 							}
 						}

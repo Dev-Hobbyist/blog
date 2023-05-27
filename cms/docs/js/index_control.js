@@ -96,7 +96,7 @@ function IndexControl(){
 			self._post_list = res.post_list;
 			if(res.ok){
 				var h = `
-					<table class="table small table-striped">
+					<table class="table table-sm small table-striped">
 					<tr>
 					<td>Y</td>
 					<td>M</td>
