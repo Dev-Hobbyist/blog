@@ -1,3 +1,5 @@
 {
-	"title": "Dev Hobbyist"
+	"title": "Dev Hobbyist",
+	"http_port": 1080,
+	"cms_http_port": 1081
 }
