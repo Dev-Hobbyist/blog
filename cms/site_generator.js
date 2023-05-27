@@ -82,6 +82,9 @@ function SiteGenerator(){
 	this.ExportAll = async function(){
 		return new Promise(async function(resolve, reject){
 			try{
+				fs.rmdirSync(__dirname + '/../docs/', {recursive: true, force: true});
+				fs.mkdirSync(__dirname + '/../docs/');
+
 				var post_list = await service.GetPostList();
 				var category_list = await service.GetCategoryList();
 
@@ -260,6 +263,11 @@ function SiteGenerator(){
 				var template = fs.readFileSync(__dirname + `/template/keyword.html`, 'utf-8');
 				//CATEGORY_LIST_MENU
 				template = self.Update_CATEGORY_LIST_MENU('..', template, category_list);
+
+				var dir = __dirname + `/../docs/keyword/`;
+				if (!fs.existsSync(dir)){
+					fs.mkdirSync(dir, { recursive: true });
+				}				
 
 				for(var t=0 ; t<keyword_list.length ; t++){
 					var keyword = keyword_list[t];
