@@ -4,6 +4,22 @@ var site_generator = require('./site_generator.js');
 var router = express.Router();
 const fs = require('fs');
 
+router.get('/get_site_config', async function(req, res){
+	try{
+		var site_config = await service.GetSiteConfig();
+		res.send({
+			ok:1,
+			site_config: site_config
+		});
+	}catch(err){
+		console.error(err);
+		res.send({
+			ok:0,
+			err:'failed to get_site_config'
+		});
+	}
+});
+
 router.post('/save_post', async function(req, res){
 	try{
 		var data = req.body;
